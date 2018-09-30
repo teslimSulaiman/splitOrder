@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Teslim_SplitOrder>
+            <version>0.7.0</version>
+        </Teslim_SplitOrder>
+    </modules>
+
+    <global>
+
+        <models>
+            <splitorder>
+                <class>Teslim_SplitOrder_Model</class>
+            </splitorder>
+        </models>
+
+        <events>
+            <checkout_submit_all_after>
+                <observers>
+                    <teslim_splitorder>
+                        <class>Teslim_SplitOrder_Model_Observer</class>
+                        <method>SplitOrder</method>
+
+                    </teslim_splitorder>
+                </observers>
+            </checkout_submit_all_after>
+        </events>
+
+        <fieldsets>
+            <sales_convert_quote>
+                <split_order_parent_order_id><to_order>*</to_order></split_order_parent_order_id>
+            </sales_convert_quote>
+
+            <sales_convert_order>
+                <split_order_parent_order_id><to_quote>*</to_quote></split_order_parent_order_id>
+            </sales_convert_order>
+
+        </fieldsets>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Teslim_SplitOrder_Block_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
+
+
+    <resources>
+        <teslim_splitorder_setup>
+            <setup>
+                <module>Teslim_SplitOrder</module>
+                <class>Teslim_SplitOrder_Model_Resource_Mysql4_Setup</class>
+
+            </setup>
+            <connection>
+                <use>core_setup</use>
+            </connection>
+
+        <teslim_splitorder_write>
+            <connection>
+                <use>core_write</use>
+            </connection>
+        </teslim_splitorder_write>
+        <teslim_splitorder_read>
+            <connection>
+                <use>core_read</use>
+            </connection>
+        </teslim_splitorder_read>
+        </teslim_splitorder_setup>
+    </resources>
+    </global>
+</config>
